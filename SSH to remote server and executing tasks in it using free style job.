@@ -1,0 +1,24 @@
+Pre-requesites: Remote_server, Jenkins_server
+Plugins required: SSH plugin
+
+Process:
+* Connect to jenkins and install SSH plugin.
+Dashboard-->Managejenkins-->plugins-->Available Plugins-->SSH(search for it)-->install
+
+*Add Public key to Credentials: 
+Dashboard-->Managejenkins-->Credentials-->Global-->Add Credentials-->Kind(SSH Username and publickey)-->ID(give any name)-->Description(give it)-->Username(ec2-user)-->Private Key(Enter directly)(Give the private key directly)
+
+*Add remote host:
+Dashboard-->Manage Jenkins-->System-->SSH remote hosts-->Hostname(give public ip of remote host)-->Port(22)-->Credentials(select the given credential)-->Check connection-->save
+
+*New job:
+Create free style job-->Build Steps-->Execute shell script on remote host using ssh-->SSH site(select remote host)-->Command(give commamd you want to perform)
+command script(copy paste in Command):
+#!/bin/bash
+sudo mkdir /root/arjun
+sudo touch /root/arjun/script.sh
+sudo chmod +x /root/arjun/script.sh
+echo 'sudo yum update -y && sudo yum install httpd -y && sudo systemctl start httpd && sudo systemctl enable httpd && sudo mkdir -p /var/www/html && echo "<html><h1><center>hi this is SUMANTH</center></h1></html>" | sudo tee /var/www/html/index.html > /dev/null' | sudo tee -a /root/arjun/script.sh > /dev/null
+sudo sh /root/arjun/script.sh
+------------------------------------
+RUN THE JOB AND BROWSE REMOTE SERVERS PUBLIC_IP
