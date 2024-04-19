@@ -16,8 +16,10 @@ sudo curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo 
     https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
     /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt-get install jenkins -y
+
 ------------------------------------------
 sudo sh script.sh
+NOTE: if this script throw any error ther run it again.
 =================================================================
 run these commands manually:
 #STEP:4-installing maven
