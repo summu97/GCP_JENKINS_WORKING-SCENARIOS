@@ -34,7 +34,10 @@ run these commands manually:
 
 cd /opt/MAVEN/apache-maven-3.9.6/bin/
 source .bashrc
-MAVEN PATH: /opt/MAVEN/apache-maven-3.9.6
-JAVA PATH: /usr/bin/java
-GIT PATH: /usr/bin/git
+
 for password: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+=================================================================
+MAVEN PATH: /opt/MAVEN/apache-maven-3.9.6
+Java version: 17.0.10
+JAVA PATH: /usr/lib/jvm/java-17-openjdk-amd64
+GIT PATH: /usr/bin/git
