@@ -22,6 +22,10 @@ sudo sh script.sh
 NOTE: if this script throw any error ther run it again.
 =================================================================
 run these commands manually:
+for now install maven manually: sudo apt install maven -y
+
+------------
+{
 #STEP:4-installing maven
 sudo wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
 sudo tar -xvzf apache-maven-3.9.6-bin.tar.gz -C /opt
@@ -31,6 +35,8 @@ export M2_HOME=/opt/apache-maven-3.9.6
 export PATH=$PATH:$M2_HOME/bin
 
 source ~/.bashrc
+}
+------------
 mvn -version
 
 for password: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
