@@ -1,0 +1,13 @@
+Configuring freestyle job:
+
+Dashboard-->freestyle-->Configuration-->
+
+Source Code Management:
+Git-->Repository URL(give your pom.xml repo url)(https://github.com/summu97/monolythic-project.git)
+
+Build Steps:
+Invoke top-level Maven targets-->Maven Version(select it)-->Goals(package)
+
+Post-build Actions:
+Deploy war/ear to a container-->WAR/EAR files(**/*.war)-->Containers(select your tomcat version or if not there then select latest)-->Credentials(provide credentials:type username and password(of your tomcat))-
+->Tomcat URL(provide it(http://34.125.5.246:8080/))-->SAVE & BUILD
