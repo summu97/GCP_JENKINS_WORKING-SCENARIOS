@@ -1,5 +1,10 @@
 Configuring freestyle job:
 
+Plugin: Deploy to container
+--------------------------------------------------------------------
+Adding credentials:
+Manage jenkins-->credentials-->global-->add credentials-->kind: username with password-->user: tomcat-->password: tomcat-->tomcat-cred-->save
+--------------------------------------------------------------------
 Dashboard-->freestyle-->Configuration-->
 
 Source Code Management:
