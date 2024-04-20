@@ -17,16 +17,12 @@ sudo curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo 
     /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt-get install jenkins -y
 
-#STEP:4-install maven-3.8.7
-sudo apt install maven -y
 ------------------------------------------
 sudo sh script.sh
 NOTE: if this script throw any error ther run it again.
 =================================================================
+RUN MANUALLY:
 
-
-
-------------
 Instlling your desired maven version in particular path:
 # Download Maven
 wget https://apache.osuosl.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
@@ -52,6 +48,3 @@ if you want to check the version then run below command.
 
 for password: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 =================================================================
-Java version: 17.0.10
-JAVA PATH: /usr/lib/jvm/java-17-openjdk-amd64
-GIT PATH: /usr/bin/git
