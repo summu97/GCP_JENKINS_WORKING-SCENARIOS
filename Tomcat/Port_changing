@@ -1,0 +1,7 @@
+vim tport.sh
+--------------------------
+sudo sed -i 's/port="8080"/port="8090"/' ./apache-tomcat-10.1.19/conf/server.xml
+sh apache-tomcat-10.1.19/bin/shutdown.sh
+sh apache-tomcat-10.1.19/bin/startup.sh
+--------------------------
+sh tport.sh
