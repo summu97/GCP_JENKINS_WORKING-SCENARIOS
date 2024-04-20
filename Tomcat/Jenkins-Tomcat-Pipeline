@@ -1,0 +1,33 @@
+
+
+pipeline {
+    agent any
+    tools {
+        maven 'maven' // Use the name configured in Jenkins
+    }
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/summu97/monolythic-project.git'
+            }
+        }
+        stage('package') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('deploy') {
+            steps {
+                deploy adapters:[
+                    tomcat9(
+                        credentialsId: 'tomcat-cred',
+                        path: '',
+                        url: 'http://34.16.196.62:8090/'
+                        )
+                    ],
+                    contextPath: 'netflix',
+                    war: 'target/*.war'
+            }
+        }
+    }
+}
