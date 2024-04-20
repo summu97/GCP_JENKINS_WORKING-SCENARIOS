@@ -1,0 +1,21 @@
+Configuring maven as tool:
+Dashboard-->Manage Jenkins-->Tools-->maven installations-->name-->give maven home(/opt/apache-maven-3.9.5)-->save
+----------------------------
+free style job:
+Build steps-->Invoke top-level Maven targets-->Maven Version(select maven)-->Goals(mvn -v or any other goals)-->save-->build
+----------------------------
+Pipeline job:
+
+pipeline {
+    agent any
+    tools {
+        maven 'maven' // Use the name configured in Jenkins
+    }
+    stages {
+        stage('Hello') {
+            steps {
+                sh 'mvn -v'
+            }
+        }
+    }
+}
