@@ -1,0 +1,56 @@
+RUN MANUALLY:
+-------------------------------
+If you are running as ec2-user:
+-------------------------------
+Instlling your desired maven version in particular path:
+# Download Maven
+wget https://apache.osuosl.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
+
+# Extract the archive:
+tar xzvf apache-maven-3.9.5-bin.tar.gz
+
+# Move Maven to /opt directory (optional):
+sudo mv apache-maven-3.9.5 /opt
+
+# Set environment variables (optional):
+export M2_HOME=/opt/apache-maven-3.9.5
+export PATH=$M2_HOME/bin:$PATH
+
+# Verify installation
+mvn -v
+
+NOTE:above process dont work when you run commands in ec2-user and tried mvn -v in root user and vice-versa
+if you want to check the version then run below command.
+
+/opt/apache-maven-3.9.5/bin/mvn -v
+==========================================
+
+if you are running as ROOT user:
+RUN MANUALLY:
+
+Instlling your desired maven version in particular path:
+# Download Maven
+wget https://apache.osuosl.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
+
+# Extract the archive:
+tar xzvf apache-maven-3.9.5-bin.tar.gz
+
+# Move Maven to /opt directory (optional):
+sudo mv apache-maven-3.9.5 /opt
+
+# Set environment variables:
+vim ~/.bashrc (copy paste below command)
+
+export M2_HOME=/opt/apache-maven-3.9.5
+export PATH=$M2_HOME/bin:$PATH
+
+#Run
+source ~/.bashrc
+
+# Verify installation
+mvn -v
+
+NOTE:above process dont work when you run commands in ec2-user and tried mvn -v in root user and vice-versa
+if you want to check the version then run below command.
+
+/opt/apache-maven-3.9.5/bin/mvn -v
