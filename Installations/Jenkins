@@ -1,0 +1,23 @@
+vim script.sh(Copy paste below script)
+------------------------------------------
+#STEP:1-install java latest version
+sudo apt-get update
+sudo apt install default-jdk -y
+
+#STEP:2-install git
+sudo apt install git -y
+
+#STEP:3-install jenkins
+sudo curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+    /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+  echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get install jenkins -y
+
+------------------------------------------
+sudo sh script.sh
+NOTE: if this script throw any error ther run it again.
+=================================================================
+
+for password: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
