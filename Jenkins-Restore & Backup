@@ -1,0 +1,19 @@
+Create new bucket: adq-bucket-getteam
+
+Roles needed:
+Storage Legacy Bucket Owner 
+Storage Object Admin
+
+NOTE: after creating bucket make sure that the service account you are using for vm is given as principle to the bucket and assigned with above roles.
+
+In parent jenkins server run:
+systemctl stop jenkins
+tar -zcvf jenkins.restore.tar.gz /var/lib/jenkins/
+gsutil cp jenkins.restore.tar.gz gs://adq-bucket-getteam/jenkins.restore.tar.gz
+
+In restored jenkins server run:
+systemctl stop jenkins
+gsutil cp gs://adq-bucket-getteam/jenkins.restore.tar.gz jenkins.restore.tar.gz
+rm -rf /var/lib/jenkins
+tar -zxvf jenkins.restore.tar.gz -C /
+systemctl start jenkins
