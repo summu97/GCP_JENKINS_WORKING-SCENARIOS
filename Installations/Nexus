@@ -16,6 +16,7 @@ echo 'run_as_user="nexus"' | sudo tee /app/nexus/bin/nexus.rc
 ----------------------------------------------------
 sh nexus.sh
 ----------------------------------------------------
+Run manually:
 
-sudo /app/nexus/bin/nexus start
-sudo /app/nexus/bin/nexus status
+/app/nexus/bin/nexus start
+/app/nexus/bin/nexus status
