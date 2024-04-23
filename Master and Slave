@@ -1,0 +1,32 @@
+IN SLAVE TERMINAL: generate ssh keys using: ssh-keygen; copy public key in authorized_keys and put private key aside.
+
+		 : create jenkins folder in root and 'chmod 755 /root/jenkins'
+
+Dashboard-->Nodes-->New node-->give name-->Permanent Agent(select)-->create-->Number of executors(2(no of builds you want to perform parallely))-->Remote root directory(/root/jenkins)-->Labels(slave)-->Usage(only build jobs with label expression matching this node)-->Launch method(Launch agents via SSH)-->*Host(private-ip of slave)-->Credentials(jenkins)-->SSH username and private key-->ID(your wish)-->*Username(root)-->Private Key-->Enter directly(paste private key)-->ADD-->Host Key Verification Strategy(non verifying verification strategy)-->Tool Locations(give maven tool location)-->save
+
+NOTE:
+make sure to install java, git, maven, Tool Locations.
+Also make sure your jenkins server's service account have permissions to login to another server.
+NOTE: NOTE: NOTE:
+make sure you are giving Tool Locations.
+---------------------------------------------------------------------------
+pipeline {
+    agent {
+        label 'slave'
+    }
+    tools {
+        maven 'maven' // Use the name configured in Jenkins
+    }
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/summu97/monolythic-project.git'
+            }
+        }
+        stage('package') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
