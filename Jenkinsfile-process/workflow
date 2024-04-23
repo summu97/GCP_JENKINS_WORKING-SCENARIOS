@@ -1,4 +1,4 @@
 Jenkinsfile(J-capital):
 
 Pipeline-->Definition(pipeline script from SCM)-->SCM(git)-->Repository URL(provide it(https://github.com/summu97/GCP_JENKINS_WORKING-SCENARIOS.git))
--->Branches to build(provide branch(*/main))-->Script Path(Jenkinsfile path(Jen/Jenkinsfile))
+-->Branches to build(provide branch(*/main))-->Script Path(Jenkinsfile path(Jenkinsfile-process/Jenkinsfile))
