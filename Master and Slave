@@ -30,3 +30,52 @@ pipeline {
         }
     }
 }
+---------------------------------------------------------------------------
+use below code concepts for future requirements:
+---------------------------------------------------------------------------
+pipeline {
+    agent none
+    
+    stages {
+        stage('Checkout') {
+            agent { 
+                label 'your-slave-label' // Specify the label of your Jenkins slave node
+            }
+            steps {
+                // Checkout source code from Git repository
+                git 'https://github.com/your/repository.git'
+            }
+        }
+        stage('Build') {
+            agent {
+                label 'your-slave-label' // Specify the label of your Jenkins slave node
+            }
+            steps {
+                // Build your project (e.g., Maven, Gradle, etc.)
+                sh 'mvn clean install' // Example command for Maven
+            }
+        }
+        stage('Test') {
+            agent {
+                label 'your-slave-label' // Specify the label of your Jenkins slave node
+            }
+            steps {
+                // Run tests (e.g., unit tests, integration tests, etc.)
+                sh 'mvn test' // Example command for running tests with Maven
+            }
+        }
+        // Add more stages as needed for deployment, publishing artifacts, etc.
+    }
+    
+    post {
+        success {
+            // Actions to perform when the pipeline succeeds (e.g., notifications)
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            // Actions to perform when the pipeline fails (e.g., notifications, cleanup)
+            echo 'Pipeline failed!'
+        }
+    }
+}
+
