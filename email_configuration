@@ -1,0 +1,17 @@
+STEP1: In gmail
+*click on gmail icon-->Manage your google account-->security-->2-step verification(go through steps and turn it on)
+*search for 'app passwords'-->app name(jenkins)-->it will generate a password save it.
+
+STEP2: In jenkins
+*Manage jenkins-->System-->E-mail Notification:
+SMTP server(smtp.gmail.com)-->Advanced-->Use SMTP Authentication(select it)-->User Name(give your email)-->Password(provide password that you generated in gmail)-->Use SSL(select it)-->SMTP Port(465)-->Test configuration by sending test e-mail-->Test e-mail recipient-->give your email here-->Test configuration(click on it)
+NOTE: you must get 'Email was successfully sent'
+
+STEP3:
+*Manage jenkins-->System-->Extended E-mail Notification:
+SMTP server(smtp.gmail.com)-->SMTP Port(465)-->Advanced-->Credentials-->add-->jenkins-->kind(username and password)-->Username(give configured email)-->password(provide password that you generated in gmail)-->id(email)-->description(optional)-->ADD-->select added credential-->use ssl(click on it)-->go through all other sections like Default Recipients(who will get notified)-->Reply To List(who they can reply to)...etc
+
+NOTE:
+For pipeline syntax go to pipeline and in Sample Step select emailext:extended email and provide all information about who you want to send email to and also write the message that you want to get after build is done.
+
+*For free style job go to:Post-build Actions-->Editable Email Notification(go through every step or leave it empty as it takes the default values that you've configured in system).
