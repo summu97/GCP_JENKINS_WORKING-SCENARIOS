@@ -2,10 +2,11 @@ IN SLAVE TERMINAL: generate ssh keys using: ssh-keygen; copy public key in autho
 Process: 
 ssh-keygen
 cd .ssh
-cat id_rsa.pub(copy paste content in authorized keys i.e (vim authorized keys (pste content of id_rsa.pub here)))
+cat id_rsa.pub(copy paste content in authorized keys i.e 
+vim authorized keys (paste content of id_rsa.pub here)
 cat id_rsa (copy this content and keep a side you can use it when configuring slave credentials)
 
-		 : create jenkins folder in root and 'chmod 755 /root/jenkins'
+Create remote root directory:
 mkdir /root/jenkins
 chmod 755 /root/jenkins
 
