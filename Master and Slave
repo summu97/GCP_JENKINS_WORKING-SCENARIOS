@@ -7,7 +7,7 @@ cat id_rsa (copy this content and keep a side you can use it when configuring sl
 
 		 : create jenkins folder in root and 'chmod 755 /root/jenkins'
 mkdir /root/jenkins
-chmod 755 /rot/jenkins
+chmod 755 /root/jenkins
 
 Dashboard-->Nodes-->New node-->give name-->Permanent Agent(select)-->create-->Number of executors(2(no of builds you want to perform parallely))-->Remote root directory(/root/jenkins)-->Labels(slave)-->Usage(only build jobs with label expression matching this node)-->Launch method(Launch agents via SSH)-->*Host(private-ip of slave)-->Credentials(jenkins)-->SSH username and private key-->ID(your wish)-->*Username(root)-->Private Key-->Enter directly(paste private key)-->ADD-->Host Key Verification Strategy(non verifying verification strategy)-->Tool Locations(give maven tool location)-->save
 
