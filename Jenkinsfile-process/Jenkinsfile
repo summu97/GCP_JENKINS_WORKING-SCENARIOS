@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'slave'
-    }
+    agent
     tools {
         maven 'maven' // Use the name configured in Jenkins
     }
