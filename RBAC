@@ -1,0 +1,10 @@
+
+Plugin: Role-based Authorization Strategy
+Give authorization in security: Dashboard-->Manage Jenkins-->Security-->Authorization-->Role-Based Strategy-->Save
+Create user: Dashboard-->Manage Jenkins-->Users-->Create User(give user details and create)
+Manage and assign roles to users: 
+Dashboard-->Manage Jenkins-->Manage and Assign Roles:
+Manage Roles-->Role to add(give any name)-->add-->Give permissions you want to assign to user-->save
+Assign Roles-->Add User-->User ID(give user id you created)-->Select role you want to assign-->save
+
+						---------Try accessing the jenkins using useryou created---------
