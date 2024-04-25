@@ -1,0 +1,9 @@
+Pre-requesites: You need to have a repository with multiple branches and Jenkinsfile's.
+
+Workflow: Dashboard-->New-item(give name)-->Multi Branch Pipeline-->OK
+
+Display Name(give it)-->Branch Sources(Git)-->Project Repository(give your repo url)-->Build Configuration-->Script Path(specify correct path for your Jenkinsfile)-->save
+
+NOTE:
+You need to have your pipeline code in 'Jenkinsfile'(J- capital).
+Also go through all other sections.
