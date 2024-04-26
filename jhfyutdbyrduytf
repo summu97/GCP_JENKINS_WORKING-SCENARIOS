@@ -45,3 +45,48 @@ pipeline {
         }
     }
 }
+------------------------
+pipeline {
+    agent any
+
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('your-google-service-account-credentials')
+        GCS_BUCKET = 'your-gcs-bucket'
+        GCS_OBJECT = 'path/to/your/war_file.war'
+        TOMCAT_SERVER = 'tomcat-server-hostname-or-ip'
+        TOMCAT_WEBAPPS_DIR = '/path/to/tomcat/webapps'
+        TOMCAT_USER = 'tomcat-username'
+        TOMCAT_PASSWORD = 'tomcat-password'
+    }
+
+    stages {
+        stage('Download WAR from GCS') {
+            steps {
+                script {
+                    sh "gsutil cp gs://${GCS_BUCKET}/${GCS_OBJECT} ."
+                }
+            }
+        }
+
+        stage('Deploy WAR to Tomcat') {
+            steps {
+                script {
+                    sshagent(credentials: ['your-ssh-credentials']) {
+                        sh "scp ${GCS_OBJECT} ${TOMCAT_USER}@${TOMCAT_SERVER}:${TOMCAT_WEBAPPS_DIR}/"
+                    }
+                }
+            }
+        }
+
+        stage('Restart Tomcat') {
+            steps {
+                script {
+                    sshagent(credentials: ['your-ssh-credentials']) {
+                        sh "ssh ${TOMCAT_USER}@${TOMCAT_SERVER} '${TOMCAT_WEBAPPS_DIR}/../bin/shutdown.sh'"
+                        sh "ssh ${TOMCAT_USER}@${TOMCAT_SERVER} '${TOMCAT_WEBAPPS_DIR}/../bin/startup.sh'"
+                    }
+                }
+            }
+        }
+    }
+}
