@@ -1,0 +1,125 @@
+In Console:
+* Create service account with :storage admin
+                              :storage object user roles.
+* Generate json key
+
+In jenkins:
+
+*Install Plugin: Google Cloud Storage plugin, Deploy to container.
+
+*Add Credentials: Dashboard-->Manage Jenkins-->Credentials-->Global-->Add Credentials-->Kind(Google Service Account from private key)-->ID(give it)-->Description(give it)-->Project Name(give your project id)-->JSON key-->JSON key File-->Choose file(select the json file)-->Create
+
+*Add Tomcat Credentials the same way but kind(username and password)
+--------------
+
+*Storing war file in bucket: 
+
+For Pipeline syntax: Sample Step(googleStorageUpload:Google Storage Classic Upload)-->File Pattern(target/*.war)-->Storage Location(Give storage bucket name)-->Generate Pipeline and use in pipeline code
+
+
+*Download war from storage bucket:
+
+For Pipeline syntax: Sample Step(googleStorageDownload:Google Storage Download)-->Object to download(gs://sumanth-war-bucket/target/NETFLIX-1.2.2.war)-->Local Directory(.)-->Strip path prefix-->Path prefix(target)-->Generate Pipeline Script
+
+*Deploy to container:
+
+For Pipeline syntax: Sample Step(deploy:Deploy war/ear to a Container)-->deploy-->WAR/EAR files-->*.war-->Context path(specify your desired name(netflix))-->Containers-->Add Container-->select your tomcat version-->Credentials(select tomcat credentials)-->Tomcat URL(provide it)-->generate
+
+
+Pipeline:
+---------------
+
+pipeline {
+    agent any
+    tools {
+        maven 'maven' // Use the name configured in Jenkins
+    }
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/summu97/monolythic-project.git'
+            }
+        }
+        stage('package') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('store war to bucket') {
+            steps {
+                googleStorageUpload bucket: 'gs://sumanth-war-bucket', credentialsId: 'json-key', pattern: 'target/*.war'
+            }
+        }
+        stage('Download war') {
+            steps {
+                googleStorageDownload bucketUri: 'gs://sumanth-war-bucket/target/NETFLIX-1.2.2.war', credentialsId: 'json-key', localDirectory: '.', pathPrefix: 'target/'
+            }
+        }
+        stage('Deploy to tomcat') {
+            steps {
+                deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://35.231.207.223:8080/')], contextPath: 'netflix', war: '*.war'
+            }
+        }
+    }
+}
+-----------------------------------------------------------------------------------
+ANOTHER APPROACH TO STORE WAR FILE TO STORAGE & THEN DOWNLOAD AND DEPLOY TO TOMCAT:
+-----------------------------------------------------------------------------------
+
+In Terminal:
+* Set password to jenkins:
+passwd jenkins
+enterpassword:
+re-enterpassword:
+
+* Change permissions to sudoers file:
+chmod 640 /etc/sudoers
+vim /etc/sudoers (add below line and :wq)
+jenkins    ALL=(ALL:ALL) ALL
+chmod 400 /etc/sudoers
+
+
+In Jenkins UI:
+
+* Add jenkins password in credentials: Kind(secret text)
+---------------
+Pipeline:
+---------------
+pipeline {
+    agent any
+    tools {
+        maven 'maven' // Use the name configured in Jenkins
+    }
+        environment {
+        MY_PASSWORD = credentials('jen-password')
+    }
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/summu97/monolythic-project.git'
+            }
+        }
+        stage('package') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('storage') {
+            steps {
+                googleStorageUpload bucket: 'gs://sumanth-war-bucket', credentialsId: 'json-key', pattern: 'target/*.war'
+            }
+        }
+        stage('Copying war') {
+            steps {
+                sh 'gsutil cp gs://sumanth-war-bucket/target/NETFLIX-1.2.2.war .'
+            }
+        }
+        stage('Deploy to container') {
+            steps {
+                sh '''
+                    echo $MY_PASSWORD | sudo -S mv NETFLIX-1.2.2.war /root/apache-tomcat-9.0.88/webapps
+                '''
+            }
+        }
+    }
+}
