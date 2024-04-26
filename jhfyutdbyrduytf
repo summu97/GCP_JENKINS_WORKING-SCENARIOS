@@ -1,0 +1,47 @@
+https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.88/bin/apache-tomcat-9.0.88.tar.gz       
+
+Storage Legacy Bucket Owner 
+
+Storage Legacy object Owner    
+
+Google Cloud Storage
+generate json-key
+add credentials on jenkins: kind gogle service account from private key go through necessary steps.       
+
+pipeline {
+    agent any
+
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('your-google-service-account-credentials')
+        GCS_BUCKET = 'your-gcs-bucket'
+        GCS_OBJECT = 'path/to/your/war_file.war'
+        TOMCAT_WEBAPPS_DIR = '/path/to/tomcat/webapps'
+    }
+
+    stages {
+        stage('Download WAR from GCS') {
+            steps {
+                script {
+                    sh "gsutil cp gs://${GCS_BUCKET}/${GCS_OBJECT} ."
+                }
+            }
+        }
+
+        stage('Deploy WAR to Tomcat') {
+            steps {
+                script {
+                    sh "cp ${GCS_OBJECT} ${TOMCAT_WEBAPPS_DIR}/"
+                }
+            }
+        }
+
+        stage('Restart Tomcat') {
+            steps {
+                script {
+                    sh "/path/to/tomcat/bin/shutdown.sh"
+                    sh "/path/to/tomcat/bin/startup.sh"
+                }
+            }
+        }
+    }
+}
