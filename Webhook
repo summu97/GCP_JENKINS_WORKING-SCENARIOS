@@ -6,4 +6,4 @@
 
 * Enable webhook: Build Triggers-->select 'GitHub hook trigger for GITScm polling'.
 
-				----------:PUT THE SCRIPT IN PIPELINE CHECKOUT STAGE:----------
+				----------:PUT THE SCRIPT IN PIPELINE CHECKOUT STAGE AND TRY CHANGING THE CODE AND COMMIT:----------
