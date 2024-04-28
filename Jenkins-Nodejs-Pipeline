@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/summu97/react.js.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                npm install
+                npm run build
+                '''
+            }
+        }
+        stage('deploy') {
+            steps {
+                sh '''
+                echo "dinesh" | sudo -S mv build/* /var/www/html
+                '''
+            }
+        }
+        stage('Zip') {
+            steps {
+                sh 'zip -r package_release.zip build/' 
+            }
+        }
+    }
+}
