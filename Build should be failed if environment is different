@@ -1,0 +1,46 @@
+Add parameters: This project is parameterized-->Choice Parameter-->Name=ENVIRONMENT-->Choices(dev, test, prod).
+NOTE: Modify the below code according to your requirement.
+Post build actions: Events that happen after build is Scuuess or Failure or Always.
+
+    post {
+        failure {
+            echo "msg..."
+        }
+    }
+NOTE:
+This stage must come after stages closing brace and will execute accordingly(on your choice i.e, success, failure, always).
+-----------------------------------
+pipeline {
+    agent any
+    stages {
+        stage('Checking Environment') {
+            steps {
+                script {
+                    def targetEnvironment = env.ENVIRONMENT
+                    
+                    if (targetEnvironment != 'dev') {
+                        error "Wrong environment selected. This Deployment to dev environment only!"
+                    }
+                }
+            }
+        }
+        
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/summu97/monolythic-project.git'
+            }
+        }
+        
+        stage('*****') {
+            steps {
+                // add stage that you want to run.
+            }
+        }
+    }
+    
+    post {
+        failure {
+            echo "Please select the correct environment."
+        }
+    }
+}
