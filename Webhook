@@ -1,0 +1,9 @@
+* Generate token in GitHub.
+
+* Adding Webhook in GitHub: Go to project repository-->Settings-->Webhooks-->Add Webhook-->Payload URL(Add your Jenkins url)(i.e, http://35.226.14.124:8080/github-webhook/)-->Which events would you like to trigger this webhook(Send me everything)-->Add Webhook(lastly refresh the page and confirm that the hook is successfully done).
+
+* In Jenkins Pipeline Syntax: Sample Step(checkout: Check out from version control)-->Repository URL(https://github.com/summu97/monolythic-project.git)-->Credentials-->Add-->jenkins-->Kind(Username and Password)-->Username(give your GitHub username)-->Password(give generated token)-->Id(give it)-->add-->In Credentials select the given creds-->specify the branch-->Generate Pipeline Script.
+
+* Enable webhook: Build Triggers-->select 'GitHub hook trigger for GITScm polling'.
+
+				----------:PUT THE SCRIPT IN PIPELINE CHECKOUT STAGE:----------
