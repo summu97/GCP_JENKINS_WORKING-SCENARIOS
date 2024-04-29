@@ -1,0 +1,27 @@
+plugin: Terraform
+Add JSON key in Credentials as 'Secret text'
+Use Parameterised build: key: action ; value: apply, destroy
+Pipeline:
+------------
+pipeline {
+    agent any
+        environment {
+        GOOGLE_CREDENTIALS = credentials('terraform-json-key')
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/summu97/terra-practise.git'
+            }
+        }
+        stage('init, plan, apply') {
+            steps {
+                sh '''
+                terraform init
+                terraform plan
+                terraform $action --auto-approve
+                '''
+            }
+        }
+    }
+}
