@@ -35,3 +35,17 @@ pipeline {
         }
     }
 }
+---------------
+To unzip the file:
+---------------
+stage('Unzip') {
+    steps {
+        script {
+            def zipFile = "path/to/your_zip_file.zip"
+            // Define the directory where you want to unzip the files
+            def unzipDir = "destination_directory"
+            sh "mkdir -p ${unzipDir}"
+            sh "unzip -o ${zipFile} -d ${unzipDir}"
+        }
+    }
+}
