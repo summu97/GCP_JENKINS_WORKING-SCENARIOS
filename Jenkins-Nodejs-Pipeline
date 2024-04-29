@@ -1,5 +1,22 @@
+In Terminal:
+* Set password to jenkins:
+passwd jenkins
+enterpassword:
+re-enterpassword:
+
+* Change permissions to sudoers file:
+chmod 640 /etc/sudoers
+vim /etc/sudoers (add below line and :wq)
+jenkins    ALL=(ALL:ALL) ALL
+chmod 400 /etc/sudoers
+chown jenkins:jenkins webapps
+
+---------
 pipeline {
     agent any
+        environment {
+        MY_PASSWORD = credentials('jen-password')
+    }
     stages {
         stage('Checkout') {
             steps {
