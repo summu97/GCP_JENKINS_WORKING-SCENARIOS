@@ -17,7 +17,7 @@ pipeline {
         stage('deploy') {
             steps {
                 sh '''
-                echo "dinesh" | sudo -S mv build/* /var/www/html
+                echo $MY_PASSWORD | sudo -S mv build/* /var/www/html
                 '''
             }
         }
