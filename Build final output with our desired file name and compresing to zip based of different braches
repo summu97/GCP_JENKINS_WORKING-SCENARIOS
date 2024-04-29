@@ -1,0 +1,37 @@
+Pass branch ame using parameters: Build with parameters or you can directly pass the value i.e, master or main.
+--------------------
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    def gitInfo = checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']], userRemoteConfigs: [[url: 'https://github.com/summu97/react.js.git']]])
+                    def branchName = gitInfo.GIT_BRANCH.tokenize('/')[1]
+                    echo "Branch name: ${branchName}"
+                }
+            }
+        }
+        stage('building code') {
+            steps {
+                sh '''
+                npm install
+                npm run build
+                '''
+            }
+        }
+        stage('creating zip') {
+            steps {
+                script {
+                    def version = "1.${env.BUILD_NUMBER}"
+                    def gitInfo = checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/summu97/react.js.git']]])
+                    def branchName = gitInfo.GIT_BRANCH.tokenize('/')[1]
+                    def fileName = branchName == 'master' ? 'package_release' : 'package_snapshot'
+                    fileName += "_${version}.zip"
+                    sh "zip -r ${fileName} build/"
+                }
+            }
+        }
+    }
+}
