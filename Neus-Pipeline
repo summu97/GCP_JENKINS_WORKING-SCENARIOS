@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven' // Use the name configured in Jenkins
+    }
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/summu97/monolythic-project.git'
+            }
+        }
+        stage('package') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('nexus') {
+            steps {
+                nexusArtifactUploader artifacts: [[artifactId: 'NETFLIX', classifier: '', file: 'target/NETFLIX-1.2.2.war', type: '.war']], credentialsId: 'nexus', groupId: 'in.RAHAM', nexusUrl: '34.125.144.152:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus', version: '1.2.2'
+            }
+        }
+    }
+}
