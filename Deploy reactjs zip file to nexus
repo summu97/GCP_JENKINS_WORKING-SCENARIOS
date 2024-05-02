@@ -1,4 +1,6 @@
 NOTE: If branch name is 'master' then create 'package_release.1.2....zip' and if any other branch then create 'package_snapshot.1.2.....zip' and store to different repositories in nexus.
+    Pass branch name through parameters.
+    Plugin: nexus artifactory uploader.
 --------------------------------------------------------------------------------
 pipeline {
     agent any
