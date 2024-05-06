@@ -18,5 +18,5 @@ sh nexus.sh
 ----------------------------------------------------
 Run manually:
 
-/app/nexus/bin/nexus.rc start
-/app/nexus/bin/nexus.rc status
+/app/nexus/bin/nexus start
+/app/nexus/bin/nexus status
