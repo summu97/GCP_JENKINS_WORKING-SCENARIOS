@@ -8,6 +8,11 @@ pipeline {
                     def gitInfo = checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']], userRemoteConfigs: [[url: 'https://github.com/summu97/react.js.git']]])
                     def branchName = gitInfo.GIT_BRANCH.tokenize('/')[1]
                     echo "Branch name: ${branchName}"
+                    if (branchName == 'master') {
+                        env.REPO_NAME = 'master' // GIVE MASTER_BRANCH OUTPUT REPO
+                    } else {
+                        env.REPO_NAME = 'other' // GIVE OTHER_BRANCH OUTPUT REPO
+                    }
                 }
             }
         }
@@ -28,7 +33,6 @@ pipeline {
                     def fileName = branchName == 'master' ? 'package_release' : 'package_snapshot'
                     fileName += "_${version}.zip"
                     sh "zip -r ${fileName} build/"
-                    // Set the artifact name as an environment variable for later use
                     env.ARTIFACT_NAME = fileName
                 }
             }
@@ -39,11 +43,11 @@ pipeline {
                     nexusArtifactUploader(
                         nexusVersion: 'nexus3',
                         protocol: 'http',
-                        nexusUrl: '34.125.144.152:8081', #CHANGE
+                        nexusUrl: '34.118.95.240:8081', //GIVE NEXUS URL
                         groupId: '1.SUMANTH',
                         version: "1.${env.BUILD_NUMBER}",
-                        repository: 'maven2-hosted', #CHANGE
-                        credentialsId: 'e9f2ad39-7789-4cbd-8d68-985b294618a0',# CHANGE
+                        repository: env.REPO_NAME,
+                        credentialsId: 'nexus', //GIVE NEXUS CREDENTIALS AS CREDENTIALS IN JENKINS
                         artifacts: [
                             [artifactId: "${env.ARTIFACT_NAME}", file: "${env.ARTIFACT_NAME}"]
                         ]
