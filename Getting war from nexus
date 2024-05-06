@@ -1,0 +1,14 @@
+Go to nexus repository and get the url of your war file.
+pass your credentials using secret text or other source to keep it secure.
+----------------------------
+pipeline {
+    agent any
+
+    stages {
+        stage('getting war') {
+            steps {
+                sh 'wget --user=admin --password=nexus http://34.118.95.240:8081/repository/nexus/in/RAHAM/NETFLIX/1.2.2/NETFLIX-1.2.2..war'
+            }
+        }
+    }
+}
