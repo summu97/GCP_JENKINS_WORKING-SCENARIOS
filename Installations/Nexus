@@ -1,3 +1,4 @@
+NOTE: Select VM with higher configuration
 # Create vm with e2 medium, 30 gb, Ubuntu-OS
 ----------------------------------------------------
 vim nexus.sh
