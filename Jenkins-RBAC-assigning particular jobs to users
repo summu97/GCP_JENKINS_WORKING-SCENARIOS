@@ -1,0 +1,19 @@
+Plugin: Role-based Authorization Strategy
+Give authorization in security: Dashboard-->Manage Jenkins-->Security-->Authorization-->Role-Based Strategy-->Save
+Create user: Dashboard-->Manage Jenkins-->Users-->Create User(developer & tester)
+Create jobs: dev-1, dev-2, test-1, test-2
+Manage and assign roles to users: 
+Dashboard-->Manage Jenkins-->Manage and Assign Roles:
+Manage Roles-->Role to add(developer)-->add-->Overall(read)-->save
+Permission Template-->ADD-->Template Name-->developer-->OK-->GIVE ACCESS YOU WANT TO GRANT TO USER
+-->SAVE
+Assign Roles-->Global user-->Add User-->User ID(developer)-->Select role "developer"-->save
+Assign Roles-->Item roles-->Add User-->User ID(developer)-->Select role "developer"-->save
+
+
+-----------
+Dashboard-->Manage Jenkins-->Manage and Assign Roles:
+Item roles-->Role to add-->tester-->Pattern(jobs you want to assign to this user)-->test-1|test-2-->Permission Template-->developer-->Add-->SAVE
+NOTE:
+to assign particular jobs: job1|job2|job3
+to select jobs that have same tag line: job.*
