@@ -1,5 +1,5 @@
 #! /bin/bash
-#Launch an instance with port:9000 and n2-standard-1
+#Launch an instance with port:9000 and n2-standard-1 and 20 GB
 
 # Update & Install "java11 & unzip" 
 sudo apt update && sudo apt install openjdk-11-jdk unzip -y
