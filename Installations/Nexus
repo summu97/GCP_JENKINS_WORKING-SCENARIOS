@@ -9,7 +9,7 @@ sudo mkdir /app && cd /app
 sudo wget https://download.sonatype.com/nexus/3/nexus-3.67.1-01-java8-unix.tar.gz
 sudo tar -xvf nexus-3.67.1-01-java8-unix.tar.gz
 sudo mv nexus-3.67.1-01 nexus
-sudo useradd nexus
+sudo useradd --shell /bin/bash nexus
 sudo passwd nexus
 sudo chown -R nexus:nexus /app/nexus
 sudo chown -R nexus:nexus /app/sonatype-work
