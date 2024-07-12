@@ -1,0 +1,42 @@
+Plugin: SonarQude scanner
+Tool integration:
+Dashboard-->Manage Jenkins-->System-->SonarQube servers-->Environment variables-->SonarQube installations-->Name-->Server URL(Ex: http://34.69.178.242:9000)-->Server authentication token(Generate token in SonarQube)-->SAVE
+
+Token Generating:
+Create Project-->Project display name-->Project key-->Main branch name(your choice)-->Set Up-->Locally-->Select Token name, Days-->Generate-->Continue-->Maven
+
+Pipeine Integration:
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    def gitInfo = checkout([$class: 'GitSCM',
+                        branches: [[name: "*/${BRANCH_NAME}"]],
+                        userRemoteConfigs: [[url: 'https://github.com/SaravanaNani/jenkins-java-project.git']]
+                    ])
+                    def branchName = gitInfo.GIT_BRANCH.tokenize('/')[1]
+                    echo "Branch name: ${branchName}"
+                }
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withCredentials([string(credentialsId: 'sonar_token', variable: 'SONAR_TOKEN')]) {
+                    sh '''
+                    mvn clean verify sonar:sonar \
+                    -Dsonar.projectKey=adq-java-app \
+                    -Dsonar.host.url=http://34.69.178.242:9000 \
+                    -Dsonar.login=${SONAR_TOKEN}
+                    '''
+                }
+            }
+        }
+        stage('Package') {
+            steps {
+                sh '''
+                mvn compile
+                mvn test
+                mvn package
+                '''
+            }
+        }
