@@ -1,0 +1,7 @@
+Install: Throttle Concurrent Builds Plugin
+
+Configure Throttle Concurrent Builds for Pipeline Jobs:
+Manage Jenkins-->System-->Throttle Concurrent Builds-->Multi-Project Throttle Categories-->Add Category-->Name(any_name)-->Maximum Total Concurrent Builds(1)-->Maximum Concurrent Builds Per Node(1)-->SAVE
+
+Apply Throttle Configuration to Jobs:
+Go to your Pipeline configuration-->Throttle Concurrent Builds-->Select(Throttle this project as part of one or more categories)-->Maximum Total Concurrent Builds(1)-->Maximum Concurrent Builds Per Node(1)-->SAVE and RUN
