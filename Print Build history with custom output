@@ -1,0 +1,20 @@
+Plugin: Build Name and Description Setter
+NOTE: first try without installing plugin.
+
+Pipeline code:
+
+        stage('Checkout') {
+            steps {
+                script {
+                    git branch: 'main', url: 'https://github.com/bpurnachander/get-ubuntudesktop-iac.git'
+                    
+                    currentBuild.displayName = "ENV: ${ENV} - #${env.BUILD_NUMBER}"
+                    currentBuild.description = """\
+TERRAFORM: ${TERRAFORM}
+TERRAFORM_EXTRA_ARGS: ${TERRAFORM_EXTRA_ARGS}
+ANSIBLE: ${ANSIBLE}
+ANSIBLE_EXTRA_ARGS: ${ANSIBLE_EXTRA_ARGS}
+"""
+                }
+            }
+        }
