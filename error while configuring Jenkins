@@ -1,0 +1,6 @@
+error while configuring Jenkins:
+dependency issue: for Jenkins verion: 2.492.1 dependency is java-17
+install it manually and put java path in Jenkins configuration file:
+sudo vim /etc/default/Jenkins 
+add: JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+To get the java home path: update-alternatives --config java
