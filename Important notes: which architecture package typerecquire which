@@ -1,0 +1,6 @@
+* which aws: to get on which path the aws is located
+* Note: when you're installing any package, you need to keep in mind the OS-architecture
+  - Commad: uname -m
+
+  - If your system architecture is x86_64, ensure you're downloading the amd64 version.
+  - If it's arm64, ensure you're downloading the ARM version.
